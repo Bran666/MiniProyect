@@ -13,6 +13,3 @@ App gestion de exposiciones aleatorias
 12.Se podra trabajar maximo dos personas.
 13.Minimo una matriz
 14.Investigar que mas se le puede agregar al proyecto
-15.Hola amigues
-16. holaaaaaaa
-17. como estann?
