@@ -1,0 +1,13 @@
+App gestion de exposiciones aleatorias
+1.Tener un menu que permita acceder a todas las funcionalidades(Se puede utilizar un do-While o While)y dede de tener un Switch Case.
+2.Se debe permitir la creacion de los temas de exposicion.
+3.Cada tema de exposicion tendra una cantidad de estudiantes, Segun la complejidad del tema(Lo asigna el usuario).
+4.La aplicacion debe permitir el ingreso de los estudiantes(Solo con el nombre).
+5.Se debe permitir gestionar tnato los temas de exposicion como para los estudiantes. Esto incluye las operacaciones de: Crear, Editar, Mostrar Y Eliminar (CRUD).
+6.La aplicacion debe permitir asignar de forma aleatoria, los estudiantes a los diferentes temas.
+7.Se debe permitir asignar temas varias veces, es decir, porbar la aplicacion con diferentes asignaciones, antes de tener la asignacion real.
+8.La aplicacion debera realizar las validaciones correspondientes para que todos los casos posibles sean tratados sin que la aplicacion funcione incorrectamente(Cantidad de temas de exposicion VS estudiantes, no pueden quedar temas ni estudiantes sin escoger).
+9.La aplicacion debera permitir precargar datos de prueba iniciales(Temas de exposicion, cantidad de estudiantes por exposicion y estudiantes).
+10.Se deben aplicar conceptos de estructuras secuenciales, estructuras condicionales, estructuras ciclicas, listas/Arreglos(Vectores, Matrices, Multidimensionales), metodos y funciones.
+11.Se debera entregar un video explicativo del codigo fuente y de la aplicacion funcionando.
+12.Se podra trabajar maximo dos personas.  
