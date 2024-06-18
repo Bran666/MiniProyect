@@ -10,4 +10,6 @@ App gestion de exposiciones aleatorias
 9.La aplicacion debera permitir precargar datos de prueba iniciales(Temas de exposicion, cantidad de estudiantes por exposicion y estudiantes).
 10.Se deben aplicar conceptos de estructuras secuenciales, estructuras condicionales, estructuras ciclicas, listas/Arreglos(Vectores, Matrices, Multidimensionales), metodos y funciones.
 11.Se debera entregar un video explicativo del codigo fuente y de la aplicacion funcionando.
-12.Se podra trabajar maximo dos personas.  
+12.Se podra trabajar maximo dos personas.
+13.Minimo una matriz
+14.Investigar que mas se le puede agregar al proyecto
