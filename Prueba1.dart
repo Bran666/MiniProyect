@@ -70,7 +70,7 @@ void main() {
     while (true) {
       var key = console.readKey();
 
-      if (key.controlChar != null) {
+      if (key.controlChar != -1) {
         switch (key.controlChar) {
           case ControlCharacter.arrowUp:
             selectedIndex = (selectedIndex - 1) % Menu.length;
