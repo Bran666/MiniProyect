@@ -94,9 +94,11 @@ void main() {
           case ControlCharacter.enter:
             console.rawMode = false;
             console.clearScreen();
-            handleMenuSelection(selectedIndex, temas, cantidades, estudiantes, asignaciones, random);
+            handleMenuSelection(selectedIndex, temas, cantidades, estudiantes,
+                asignaciones, random);
             console.writeLine('Presione Enter para continuar.');
-            stdin.readLineSync(); // Pausa para que el usuario pueda ver el resultado.
+            stdin
+                .readLineSync(); // Pausa para que el usuario pueda ver el resultado.
             break;
           case ControlCharacter.escape:
             console.clearScreen();
@@ -110,22 +112,31 @@ void main() {
   }
 }
 
-void handleMenuSelection(int index, List<String> temas, List<int> cantidades, List<String> estudiantes, List<List<String>> asignaciones, Random random) {
+void handleMenuSelection(int index, List<String> temas, List<int> cantidades,
+    List<String> estudiantes, List<List<String>> asignaciones, Random random) {
+  final console = Console();
   switch (index) {
     case 0:
       // Crear un nuevo tema.
+      console.setBackgroundExtendedColor(195);
+      console.setForegroundExtendedColor(63);
       print('Ingrese el nombre del tema:');
-      String nombre = stdin.readLineSync()!;
+      console.resetColorAttributes();
+      String nombre = console.readLine()!;
 
+      console.setForegroundExtendedColor(162);
       print('Ingrese la cantidad de estudiantes para este tema:');
-      int cantidad = int.parse(stdin.readLineSync()!);
+      console.resetColorAttributes();
+      int cantidad = int.parse(console.readLine()!);
 
       // Agregar tema y cantidad a las listas correspondientes.
       temas.add(nombre);
       cantidades.add(cantidad);
       asignaciones.add([]);
 
+      console.setForegroundExtendedColor(78);
       print('Tema creado exitosamente.');
+      console.resetColorAttributes();
       break;
 
     case 1:
@@ -133,23 +144,33 @@ void handleMenuSelection(int index, List<String> temas, List<int> cantidades, Li
       for (int i = 0; i < temas.length; i++) {
         print('$i. ${temas[i]} - ${cantidades[i]} estudiantes');
       }
+      console.setForegroundExtendedColor(81);
       print('Ingrese el índice del tema a editar:');
-      int indice = int.parse(stdin.readLineSync()!);
+      console.resetColorAttributes();
+      int indice = int.parse(console.readLine()!);
 
       if (indice >= 0 && indice < temas.length) {
+        console.setForegroundExtendedColor(117);
         print('Ingrese el nuevo nombre del tema:');
-        String nuevoNombre = stdin.readLineSync()!;
+        console.resetColorAttributes();
+        String nuevoNombre = console.readLine()!;
 
+        console.setForegroundExtendedColor(116);
         print('Ingrese la nueva cantidad de estudiantes para este tema:');
-        int nuevaCantidad = int.parse(stdin.readLineSync()!);
+        console.resetColorAttributes();
+        int nuevaCantidad = int.parse(console.readLine()!);
 
         // Actualizar el tema y la cantidad.
         temas[indice] = nuevoNombre;
         cantidades[indice] = nuevaCantidad;
         asignaciones[indice] = [];
+        console.setForegroundExtendedColor(78);
         print('Tema editado exitosamente.');
+        console.resetColorAttributes();
       } else {
+        console.setForegroundExtendedColor(88);
         print('Índice inválido.');
+        console.resetColorAttributes();
       }
       break;
 
@@ -165,15 +186,19 @@ void handleMenuSelection(int index, List<String> temas, List<int> cantidades, Li
       for (int i = 0; i < temas.length; i++) {
         print('$i. ${temas[i]} - ${cantidades[i]} estudiantes');
       }
+      console.setForegroundExtendedColor(52);
       print('Ingrese el índice del tema a eliminar:');
-      int indice = int.parse(stdin.readLineSync()!);
+      console.resetColorAttributes();
+      int indice = int.parse(console.readLine()!);
 
       if (indice >= 0 && indice < temas.length) {
         temas.removeAt(indice);
         cantidades.removeAt(indice);
         asignaciones.removeAt(indice);
 
+        console.setForegroundExtendedColor(88);
         print('Tema eliminado exitosamente.');
+        console.resetColorAttributes();
       } else {
         print('Índice inválido.');
       }
@@ -181,11 +206,15 @@ void handleMenuSelection(int index, List<String> temas, List<int> cantidades, Li
 
     case 4:
       // Crear un nuevo estudiante.
+      console.setForegroundExtendedColor(33);
       print('Ingrese el nombre del estudiante:');
-      String nombre = stdin.readLineSync()!;
+      console.resetColorAttributes();
+      String nombre = console.readLine()!;
 
       estudiantes.add(nombre);
+      console.setForegroundExtendedColor(78);
       print('Estudiante creado exitosamente.');
+      console.resetColorAttributes();
       break;
 
     case 5:
@@ -193,17 +222,25 @@ void handleMenuSelection(int index, List<String> temas, List<int> cantidades, Li
       for (int i = 0; i < estudiantes.length; i++) {
         print('$i. ${estudiantes[i]}');
       }
+      console.setForegroundExtendedColor(122);
       print('Ingrese el índice del estudiante a editar:');
-      int indice = int.parse(stdin.readLineSync()!);
+      console.resetColorAttributes();
+      int indice = int.parse(console.readLine()!);
 
       if (indice >= 0 && indice < estudiantes.length) {
+        console.setForegroundExtendedColor(87);
         print('Ingrese el nuevo nombre del estudiante:');
-        String nuevoNombre = stdin.readLineSync()!;
+        console.resetColorAttributes();
+        String nuevoNombre = console.readLine()!;
 
         estudiantes[indice] = nuevoNombre;
+        console.setForegroundExtendedColor(78);
         print('Estudiante editado exitosamente.');
+        console.resetColorAttributes();
       } else {
+        console.setForegroundExtendedColor(88);
         print('Índice inválido.');
+        console.resetColorAttributes();
       }
       break;
 
@@ -219,14 +256,20 @@ void handleMenuSelection(int index, List<String> temas, List<int> cantidades, Li
       for (int i = 0; i < estudiantes.length; i++) {
         print('$i. ${estudiantes[i]}');
       }
+      console.setForegroundExtendedColor(93);
       print('Ingrese el índice del estudiante a eliminar:');
-      int indice = int.parse(stdin.readLineSync()!);
+      console.resetColorAttributes();
+      int indice = int.parse(console.readLine()!);
 
       if (indice >= 0 && indice < estudiantes.length) {
         estudiantes.removeAt(indice);
+        console.setForegroundExtendedColor(78);
         print('Estudiante eliminado exitosamente.');
+        console.resetColorAttributes();
       } else {
+        console.setForegroundExtendedColor(88);
         print('Índice inválido.');
+        console.resetColorAttributes();
       }
       break;
 
@@ -240,16 +283,24 @@ void handleMenuSelection(int index, List<String> temas, List<int> cantidades, Li
       for (int i = 0; i < temas.length; i++) {
         for (int j = 0; j < cantidades[i]; j++) {
           if (estudiantesDisponibles.isNotEmpty) {
-            int indiceAleatorio = (random.nextDouble() * estudiantesDisponibles.length).toInt();
+            int indiceAleatorio =
+                (random.nextDouble() * estudiantesDisponibles.length).toInt();
             asignaciones[i].add(estudiantesDisponibles[indiceAleatorio]);
             estudiantesDisponibles.removeAt(indiceAleatorio);
           } else {
-            print('No hay suficientes estudiantes para asignar a todos los temas.');
+            console.setForegroundExtendedColor(88);
+            print(
+                'No hay suficientes estudiantes para asignar a todos los temas.');
+            console.resetColorAttributes();
             break;
           }
         }
       }
+
+      console.setForegroundExtendedColor(76);
       print('Asignaciones realizadas exitosamente.');
+      console.resetColorAttributes();
+
       for (int i = 0; i < asignaciones.length; i++) {
         print('Tema: ${temas[i]}');
         for (int j = 0; j < asignaciones[i].length; j++) {
@@ -259,11 +310,15 @@ void handleMenuSelection(int index, List<String> temas, List<int> cantidades, Li
       break;
 
     case 9:
+      console.setForegroundExtendedColor(88);
       print('Saliendo del programa...');
+      console.resetColorAttributes();
       exit(0);
 
     default:
+      console.setForegroundExtendedColor(88);
       print('Opción inválida.');
+      console.resetColorAttributes();
       break;
   }
 }
