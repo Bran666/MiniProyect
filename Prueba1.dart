@@ -25,7 +25,7 @@ void main() {
   while (true) {
     // Despliega el menú de opciones.
     final console = Console();
-    console.clearScreen(); // Mueve esta línea al inicio para que no borre el título.
+    console.clearScreen();
     console.setBackgroundColor(ConsoleColor.blue);
     console.writeLine('Menu', TextAlignment.center);
     console.resetColorAttributes();
