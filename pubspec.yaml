@@ -1,0 +1,7 @@
+name: console_menu_example
+
+environment:
+  sdk: '^3.4.0'
+
+dependencies:
+  dart_console: ^4.0.0
