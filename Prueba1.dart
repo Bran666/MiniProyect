@@ -12,6 +12,16 @@ void main() {
   // Inicialización de un generador de números aleatorios.
   Random random = Random();
 
+  List<ConsoleColor> colors = [
+    ConsoleColor.blue,
+    ConsoleColor.green,
+    ConsoleColor.cyan,
+    ConsoleColor.magenta,
+    ConsoleColor.yellow,
+    ConsoleColor.white,
+  ];
+
+
   // Bucle principal del menú.
   while (true) {
     // Despliega el menú de opciones.
@@ -40,7 +50,11 @@ void main() {
     void printMenu() {
       for (int i = 0; i < Menu.length; i++) {
         if (i == selectedIndex) {
-          console.setBackgroundColor(ConsoleColor.yellow);
+          if (i == Menu.length - 1) {
+            console.setBackgroundColor(ConsoleColor.red);
+          } else {
+            console.setBackgroundColor(colors[random.nextInt(colors.length)]);
+          }
           console.writeLine('>> ${Menu[i]}');
           console.resetColorAttributes();
         } else {
@@ -56,7 +70,7 @@ void main() {
     while (true) {
       var key = console.readKey();
 
-      if (key.controlChar != Null) {
+      if (key.controlChar != null) {
         switch (key.controlChar) {
           case ControlCharacter.arrowUp:
             selectedIndex = (selectedIndex - 1) % Menu.length;
@@ -73,194 +87,177 @@ void main() {
             console.newLine;
             console.rawMode = false;
             break;
-
           case ControlCharacter.enter:
             console.clearScreen();
-            if (selectedIndex == Menu.length - 1) {
-              console.writeLine('Saliendo del programa...');
-              return; // Salir del bucle y terminar el programa
-            } else {
-              console.writeLine('Seleccionó: ${Menu[selectedIndex]}');
-              console.writeLine('Presione Enter para continuar.');
-            }
+            handleMenuSelection(selectedIndex, temas, cantidades, estudiantes, asignaciones, random);
+            console.writeLine('Presione Enter para continuar.');
+            stdin.readLineSync(); // Pausa para que el usuario pueda ver el resultado.
             break;
           case ControlCharacter.escape:
             console.clearScreen();
             console.writeLine('Saliendo del programa...');
-            break;
-          default:
-            // Código para manejar cualquier otro caso
-            break;
-        }
-        /*print('1. Crear Tema');
-    print('2. Editar Tema');
-    print('3. Mostrar Temas');
-    print('4. Eliminar Tema');
-    print('5. Crear Estudiante');
-    print('6. Editar Estudiante');
-    print('7. Mostrar Estudiantes');
-    print('8. Eliminar Estudiante');
-    print('9. Asignar Estudiantes a Temas Aleatoriamente');
-    print('10. Salir');*/
-        print('Seleccione una opción:');
-        int opcion = int.parse(stdin.readLineSync()!);
-        // Manejo de las opciones del menú.
-        switch (opcion) {
-          case 1:
-            // Crear un nuevo tema.
-            print('Ingrese el nombre del tema:');
-            String nombre = stdin.readLineSync()!;
-
-            print('Ingrese la cantidad de estudiantes para este tema:');
-            int cantidad = int.parse(stdin.readLineSync()!);
-
-            // Agregar tema y cantidad a las listas correspondientes.
-            temas.add(nombre);
-            cantidades.add(cantidad);
-            asignaciones.add([]);
-
-            print('Tema creado exitosamente.');
-            break;
-
-          case 2:
-            // Editar un tema existente.
-            for (int i = 0; i < temas.length; i++) {
-              print('$i. ${temas[i]} - ${cantidades[i]} estudiantes');
-            }
-            print('Ingrese el índice del tema a editar:');
-            int indice = int.parse(stdin.readLineSync()!);
-
-            if (indice >= 0 && indice < temas.length) {
-              print('Ingrese el nuevo nombre del tema:');
-              String nuevoNombre = stdin.readLineSync()!;
-
-              print('Ingrese la nueva cantidad de estudiantes para este tema:');
-              int nuevaCantidad = int.parse(stdin.readLineSync()!);
-
-              // Actualizar el tema y la cantidad.
-              temas[indice] = nuevoNombre;
-              cantidades[indice] = nuevaCantidad;
-              asignaciones[indice] = [];
-              print('Tema editado exitosamente.');
-            } else {
-              print('Índice inválido.');
-            }
-            break;
-
-          case 3:
-            // Mostrar todos los temas y sus cantidades.
-            for (int i = 0; i < temas.length; i++) {
-              print('$i. ${temas[i]} - ${cantidades[i]} estudiantes');
-            }
-            break;
-
-          case 4:
-            // Eliminar un tema existente.
-            for (int i = 0; i < temas.length; i++) {
-              print('$i. ${temas[i]} - ${cantidades[i]} estudiantes');
-            }
-            print('Ingrese el índice del tema a eliminar:');
-            int indice = int.parse(stdin.readLineSync()!);
-
-            if (indice >= 0 && indice < temas.length) {
-              temas.removeAt(indice);
-              cantidades.removeAt(indice);
-              asignaciones.removeAt(indice);
-
-              print('Tema eliminado exitosamente.');
-            } else {
-              print('Índice inválido.');
-            }
-            break;
-
-          case 5:
-            // Crear un nuevo estudiante.
-            print('Ingrese el nombre del estudiante:');
-            String nombre = stdin.readLineSync()!;
-
-            estudiantes.add(nombre);
-            print('Estudiante creado exitosamente.');
-            break;
-
-          case 6:
-            // Editar un estudiante existente.
-            for (int i = 0; i < estudiantes.length; i++) {
-              print('$i. ${estudiantes[i]}');
-            }
-            print('Ingrese el índice del estudiante a editar:');
-            int indice = int.parse(stdin.readLineSync()!);
-
-            if (indice >= 0 && indice < estudiantes.length) {
-              print('Ingrese el nuevo nombre del estudiante:');
-              String nombre = stdin.readLineSync()!;
-
-              estudiantes[indice] = nombre;
-              print('Estudiante editado exitosamente.');
-            } else {
-              print('Índice inválido.');
-            }
-            break;
-
-          case 7:
-            // Mostrar todos los estudiantes.
-            for (int i = 0; i < estudiantes.length; i++) {
-              print('$i. ${estudiantes[i]}');
-            }
-            break;
-
-          case 8:
-            // Eliminar un estudiante existente.
-            for (int i = 0; i < estudiantes.length; i++) {
-              print('$i. ${estudiantes[i]}');
-            }
-            print('Ingrese el índice del estudiante a eliminar:');
-            int indice = int.parse(stdin.readLineSync()!);
-
-            if (indice >= 0 && indice < estudiantes.length) {
-              estudiantes.removeAt(indice);
-              print('Estudiante eliminado exitosamente.');
-            } else {
-              print('Índice inválido.');
-            }
-            break;
-
-          case 9:
-            // Asignar estudiantes a temas aleatoriamente.
-            asignaciones = [[], []];
-            List<String> estudiantesDisponibles = List.from(estudiantes);
-
-            for (int i = 0; i < temas.length; i++) {
-              for (int j = 0; j < cantidades[i]; j++) {
-                if (estudiantesDisponibles.isNotEmpty) {
-                  int indiceAleatorio =
-                      (random.nextDouble() * estudiantesDisponibles.length)
-                          .toInt();
-                  asignaciones[i].add(estudiantesDisponibles[indiceAleatorio]);
-                  estudiantesDisponibles.removeAt(indiceAleatorio);
-                } else {
-                  print(
-                      'No hay suficientes estudiantes para asignar a todos los temas.');
-                  break;
-                }
-              }
-            }
-            print('Asignaciones realizadas exitosamente.');
-            for (int i = 0; i < asignaciones.length; i++) {
-              print('Tema: ${temas[i]}');
-              for (int j = 0; j < asignaciones[i].length; j++) {
-                print('- ${asignaciones[i][j]}');
-              }
-            }
-            break;
-
-          case 10:
             return;
-
           default:
-            print('Opción inválida.');
             break;
         }
       }
     }
   }
 }
+
+void handleMenuSelection(int index, List<String> temas, List<int> cantidades, List<String> estudiantes, List<List<String>> asignaciones, Random random) {
+  switch (index) {
+    case 0:
+      // Crear un nuevo tema.
+      print('Ingrese el nombre del tema:');
+      String nombre = stdin.readLineSync()!;
+
+      print('Ingrese la cantidad de estudiantes para este tema:');
+      int cantidad = int.parse(stdin.readLineSync()!);
+
+      // Agregar tema y cantidad a las listas correspondientes.
+      temas.add(nombre);
+      cantidades.add(cantidad);
+      asignaciones.add([]);
+
+      print('Tema creado exitosamente.');
+      break;
+
+    case 1:
+      // Editar un tema existente.
+      for (int i = 0; i < temas.length; i++) {
+        print('$i. ${temas[i]} - ${cantidades[i]} estudiantes');
+      }
+      print('Ingrese el índice del tema a editar:');
+      int indice = int.parse(stdin.readLineSync()!);
+
+      if (indice >= 0 && indice < temas.length) {
+        print('Ingrese el nuevo nombre del tema:');
+        String nuevoNombre = stdin.readLineSync()!;
+
+        print('Ingrese la nueva cantidad de estudiantes para este tema:');
+        int nuevaCantidad = int.parse(stdin.readLineSync()!);
+
+        // Actualizar el tema y la cantidad.
+        temas[indice] = nuevoNombre;
+        cantidades[indice] = nuevaCantidad;
+        asignaciones[indice] = [];
+        print('Tema editado exitosamente.');
+      } else {
+        print('Índice inválido.');
+      }
+      break;
+
+    case 2:
+      // Mostrar todos los temas y sus cantidades.
+      for (int i = 0; i < temas.length; i++) {
+        print('$i. ${temas[i]} - ${cantidades[i]} estudiantes');
+      }
+      break;
+
+    case 3:
+      // Eliminar un tema existente.
+      for (int i = 0; i < temas.length; i++) {
+        print('$i. ${temas[i]} - ${cantidades[i]} estudiantes');
+      }
+      print('Ingrese el índice del tema a eliminar:');
+      int indice = int.parse(stdin.readLineSync()!);
+
+      if (indice >= 0 && indice < temas.length) {
+        temas.removeAt(indice);
+        cantidades.removeAt(indice);
+        asignaciones.removeAt(indice);
+
+        print('Tema eliminado exitosamente.');
+      } else {
+        print('Índice inválido.');
+      }
+      break;
+
+    case 4:
+      // Crear un nuevo estudiante.
+      print('Ingrese el nombre del estudiante:');
+      String nombre = stdin.readLineSync()!;
+
+      estudiantes.add(nombre);
+      print('Estudiante creado exitosamente.');
+      break;
+
+    case 5:
+      // Editar un estudiante existente.
+      for (int i = 0; i < estudiantes.length; i++) {
+        print('$i. ${estudiantes[i]}');
+      }
+      print('Ingrese el índice del estudiante a editar:');
+      int indice = int.parse(stdin.readLineSync()!);
+
+      if (indice >= 0 && indice < estudiantes.length) {
+        print('Ingrese el nuevo nombre del estudiante:');
+        String nuevoNombre = stdin.readLineSync()!;
+
+        estudiantes[indice] = nuevoNombre;
+        print('Estudiante editado exitosamente.');
+      } else {
+        print('Índice inválido.');
+      }
+      break;
+
+    case 6:
+      // Mostrar todos los estudiantes.
+      for (int i = 0; i < estudiantes.length; i++) {
+        print('$i. ${estudiantes[i]}');
+      }
+      break;
+
+    case 7:
+      // Eliminar un estudiante existente.
+      for (int i = 0; i < estudiantes.length; i++) {
+        print('$i. ${estudiantes[i]}');
+      }
+      print('Ingrese el índice del estudiante a eliminar:');
+      int indice = int.parse(stdin.readLineSync()!);
+
+      if (indice >= 0 && indice < estudiantes.length) {
+        estudiantes.removeAt(indice);
+        print('Estudiante eliminado exitosamente.');
+      } else {
+        print('Índice inválido.');
+      }
+      break;
+
+    case 8:
+      // Asignar estudiantes a temas aleatoriamente.
+      asignaciones = [[], []];
+      List<String> estudiantesDisponibles = List.from(estudiantes);
+
+      for (int i = 0; i < temas.length; i++) {
+        for (int j = 0; j < cantidades[i]; j++) {
+          if (estudiantesDisponibles.isNotEmpty) {
+            int indiceAleatorio = (random.nextDouble() * estudiantesDisponibles.length).toInt();
+            asignaciones[i].add(estudiantesDisponibles[indiceAleatorio]);
+            estudiantesDisponibles.removeAt(indiceAleatorio);
+          } else {
+            print('No hay suficientes estudiantes para asignar a todos los temas.');
+            break;
+          }
+        }
+      }
+      print('Asignaciones realizadas exitosamente.');
+      for (int i = 0; i < asignaciones.length; i++) {
+        print('Tema: ${temas[i]}');
+        for (int j = 0; j < asignaciones[i].length; j++) {
+          print('- ${asignaciones[i][j]}');
+        }
+      }
+      break;
+
+    case 9:
+      print('Saliendo del programa...');
+      exit(0);
+
+    default:
+      print('Opción inválida.');
+      break;
+  }
+}
+
