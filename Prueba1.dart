@@ -7,7 +7,7 @@ void main() {
   List<String> temas = [];
   List<int> cantidades = [];
   List<String> estudiantes = [];
-  List<List<String>> asignaciones = [[], []];
+  List<List<String>> asignaciones = [];
 
   // Inicialización de un generador de números aleatorios.
   Random random = Random();
@@ -21,11 +21,11 @@ void main() {
     ConsoleColor.white,
   ];
 
-
   // Bucle principal del menú.
   while (true) {
     // Despliega el menú de opciones.
     final console = Console();
+    console.clearScreen(); // Mueve esta línea al inicio para que no borre el título.
     console.setBackgroundColor(ConsoleColor.blue);
     console.writeLine('Menu', TextAlignment.center);
     console.resetColorAttributes();
@@ -33,12 +33,11 @@ void main() {
 
     int selectedIndex = 0;
 
-    console.clearScreen();
-
     List<String> Menu = [
       '1. Crear Tema',
       '2. Editar Tema',
       '3. Mostrar Temas',
+      '4. Eliminar Tema',
       '5. Crear Estudiante',
       '6. Editar Estudiante',
       '7. Mostrar Estudiantes',
@@ -66,28 +65,34 @@ void main() {
 
     printMenu();
     console.rawMode = true;
+
     // Bucle para manejar la entrada de teclado
     while (true) {
       var key = console.readKey();
 
-      if (key.controlChar != Null) {
+      if (key.controlChar != null) {
         switch (key.controlChar) {
           case ControlCharacter.arrowUp:
             selectedIndex = (selectedIndex - 1) % Menu.length;
             if (selectedIndex < 0) selectedIndex += Menu.length;
             console.clearScreen();
+            console.setBackgroundColor(ConsoleColor.blue);
+            console.writeLine('Menu', TextAlignment.center);
+            console.resetColorAttributes();
+            console.writeLine();
             printMenu();
-            console.cursorUp();
             break;
           case ControlCharacter.arrowDown:
             selectedIndex = (selectedIndex + 1) % Menu.length;
             console.clearScreen();
+            console.setBackgroundColor(ConsoleColor.blue);
+            console.writeLine('Menu', TextAlignment.center);
+            console.resetColorAttributes();
+            console.writeLine();
             printMenu();
-            console.cursorDown();
-            console.newLine;
-            console.rawMode = false;
             break;
           case ControlCharacter.enter:
+            console.rawMode = false;
             console.clearScreen();
             handleMenuSelection(selectedIndex, temas, cantidades, estudiantes, asignaciones, random);
             console.writeLine('Presione Enter para continuar.');
@@ -227,7 +232,9 @@ void handleMenuSelection(int index, List<String> temas, List<int> cantidades, Li
 
     case 8:
       // Asignar estudiantes a temas aleatoriamente.
-      asignaciones = [[], []];
+      for (int i = 0; i < asignaciones.length; i++) {
+        asignaciones[i].clear();
+      }
       List<String> estudiantesDisponibles = List.from(estudiantes);
 
       for (int i = 0; i < temas.length; i++) {
@@ -260,4 +267,3 @@ void handleMenuSelection(int index, List<String> temas, List<int> cantidades, Li
       break;
   }
 }
-
