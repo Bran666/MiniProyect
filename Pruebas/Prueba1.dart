@@ -21,9 +21,7 @@ void main() {
     ConsoleColor.white,
   ];
 
-  // Bucle principal del menú.
   while (true) {
-    // Despliega el menú de opciones.
     final console = Console();
     console.clearScreen();
     console.setBackgroundColor(ConsoleColor.blue);
@@ -54,7 +52,7 @@ void main() {
           } else {
             console.setBackgroundColor(colors[random.nextInt(colors.length)]);
           }
-          console.writeLine('>> ${menu[i]}');
+          console.writeLine('-> ${menu[i]}');
           console.resetColorAttributes();
         } else {
           console.writeLine('   ${menu[i]}');
@@ -94,8 +92,7 @@ void main() {
           case ControlCharacter.enter:
             console.rawMode = false;
             console.clearScreen();
-            handleMenuSelection(selectedIndex, temas, cantidades, estudiantes,
-                asignaciones, random);
+            handleMenuSelection(selectedIndex, temas, cantidades, estudiantes, asignaciones, random);
             console.writeLine('Presione Enter para continuar.');
             stdin.readLineSync(); // Pausa para que el usuario pueda ver el resultado.
             inMenu = false; // Salir del bucle del menú
@@ -112,8 +109,7 @@ void main() {
   }
 }
 
-void handleMenuSelection(int index, List<String> temas, List<int> cantidades,
-    List<String> estudiantes, List<List<String>> asignaciones, Random random) {
+void handleMenuSelection(int index, List<String> temas, List<int> cantidades, List<String> estudiantes, List<List<String>> asignaciones, Random random) {
   final console = Console();
   switch (index) {
     case 0:
