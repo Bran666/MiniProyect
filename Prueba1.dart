@@ -33,7 +33,7 @@ void main() {
 
     int selectedIndex = 0;
 
-    List<String> Menu = [
+    List<String> menu = [
       '1. Crear Tema',
       '2. Editar Tema',
       '3. Mostrar Temas',
@@ -47,34 +47,34 @@ void main() {
     ];
 
     void printMenu() {
-      for (int i = 0; i < Menu.length; i++) {
+      for (int i = 0; i < menu.length; i++) {
         if (i == selectedIndex) {
-          if (i == Menu.length - 1) {
+          if (i == menu.length - 1) {
             console.setBackgroundColor(ConsoleColor.red);
           } else {
             console.setBackgroundColor(colors[random.nextInt(colors.length)]);
           }
-          console.writeLine('>> ${Menu[i]}');
+          console.writeLine('>> ${menu[i]}');
           console.resetColorAttributes();
         } else {
-          console.writeLine('   ${Menu[i]}');
+          console.writeLine('   ${menu[i]}');
         }
       }
-      console.cursorDown();
     }
 
     printMenu();
     console.rawMode = true;
 
     // Bucle para manejar la entrada de teclado
-    while (true) {
+    bool inMenu = true;
+    while (inMenu) {
       var key = console.readKey();
 
       if (key.controlChar != -1) {
         switch (key.controlChar) {
           case ControlCharacter.arrowUp:
-            selectedIndex = (selectedIndex - 1) % Menu.length;
-            if (selectedIndex < 0) selectedIndex += Menu.length;
+            selectedIndex = (selectedIndex - 1) % menu.length;
+            if (selectedIndex < 0) selectedIndex += menu.length;
             console.clearScreen();
             console.setBackgroundColor(ConsoleColor.blue);
             console.writeLine('Menu', TextAlignment.center);
@@ -83,7 +83,7 @@ void main() {
             printMenu();
             break;
           case ControlCharacter.arrowDown:
-            selectedIndex = (selectedIndex + 1) % Menu.length;
+            selectedIndex = (selectedIndex + 1) % menu.length;
             console.clearScreen();
             console.setBackgroundColor(ConsoleColor.blue);
             console.writeLine('Menu', TextAlignment.center);
@@ -97,8 +97,8 @@ void main() {
             handleMenuSelection(selectedIndex, temas, cantidades, estudiantes,
                 asignaciones, random);
             console.writeLine('Presione Enter para continuar.');
-            stdin
-                .readLineSync(); // Pausa para que el usuario pueda ver el resultado.
+            stdin.readLineSync(); // Pausa para que el usuario pueda ver el resultado.
+            inMenu = false; // Salir del bucle del menú
             break;
           case ControlCharacter.escape:
             console.clearScreen();

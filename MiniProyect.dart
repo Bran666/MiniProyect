@@ -6,10 +6,7 @@ void main() {
   List<String> temas = [];
   List<int> cantidades = [];
   List<String> estudiantes = [];
-  List<List<String>> asignaciones = [
-    [],
-    []  
-  ];
+  List<List<String>> asignaciones = [[], []];
 
   // Inicialización de un generador de números aleatorios.
   Random random = Random();
@@ -56,7 +53,7 @@ void main() {
         }
         print('Ingrese el índice del tema a editar:');
         int indice = int.parse(stdin.readLineSync()!);
-        
+
         if (indice >= 0 && indice < temas.length) {
           print('Ingrese el nuevo nombre del tema:');
           String nuevoNombre = stdin.readLineSync()!;
@@ -153,20 +150,19 @@ void main() {
 
       case 9:
         // Asignar estudiantes a temas aleatoriamente.
-        asignaciones = [
-          [],
-          []
-        ];
+        asignaciones = [[], []];
         List<String> estudiantesDisponibles = List.from(estudiantes);
 
         for (int i = 0; i < temas.length; i++) {
           for (int j = 0; j < cantidades[i]; j++) {
             if (estudiantesDisponibles.isNotEmpty) {
-              int indiceAleatorio = (random.nextDouble() * estudiantesDisponibles.length).toInt();
+              int indiceAleatorio =
+                  (random.nextDouble() * estudiantesDisponibles.length).toInt();
               asignaciones[i].add(estudiantesDisponibles[indiceAleatorio]);
               estudiantesDisponibles.removeAt(indiceAleatorio);
             } else {
-              print('No hay suficientes estudiantes para asignar a todos los temas.');
+              print(
+                  'No hay suficientes estudiantes para asignar a todos los temas.');
               break;
             }
           }

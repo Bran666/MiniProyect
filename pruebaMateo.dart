@@ -2,18 +2,12 @@ import 'dart:io';
 import 'dart:math';
 import 'package:dart_console/dart_console.dart';
 
-
-
 void main() {
-
   // Listas para almacenar temas, cantidades de estudiantes por tema, estudiantes y asignaciones.
   List<String> temas = [];
   List<int> cantidades = [];
   List<String> estudiantes = [];
-  List<List<String>> asignaciones = [
-    [],
-    []  
-  ];
+  List<List<String>> asignaciones = [[], []];
   List<String> menuPrincipal = [
     '1. Crear Tema',
     '2. Editar Tema',
@@ -30,16 +24,13 @@ void main() {
   // Inicialización de un generador de números aleatorios.
   Random random = Random();
 
-
   final controlMenuPrincipal = Console();
   int selecMenuPrincipal = 0;
-  
 
   // Bucle principal del menú.
   while (true) {
     // Despliega el menú de opciones.
-    
-    
+
     /*print('1. Crear Tema');
     print('2. Editar Tema');
     print('3. Mostrar Temas');
@@ -53,27 +44,34 @@ void main() {
     print('Seleccione una opción:');
     int opcion = int.parse(stdin.readLineSync()!);*/
 
-    renderMenuInicial(controlMenuPrincipal, menuPrincipal, selecMenuPrincipal);//renderiza el menu principal
-    final leerMenuPrincipal = controlMenuPrincipal.readKey(); // Lee la tecla presionada
-    
+    renderMenuInicial(controlMenuPrincipal, menuPrincipal,
+        selecMenuPrincipal); //renderiza el menu principal
+    final leerMenuPrincipal =
+        controlMenuPrincipal.readKey(); // Lee la tecla presionada
+
     // Maneja la navegación con las flechas del teclado
     if (leerMenuPrincipal.controlChar == ControlCharacter.arrowUp) {
-      selecMenuPrincipal = (selecMenuPrincipal - 1) % menuPrincipal.length; // Navega hacia arriba
-      if (selecMenuPrincipal < 0) selecMenuPrincipal = menuPrincipal.length - 1; // Corrección del índice negativo
+      selecMenuPrincipal = (selecMenuPrincipal - 1) %
+          menuPrincipal.length; // Navega hacia arriba
+      if (selecMenuPrincipal < 0)
+        selecMenuPrincipal =
+            menuPrincipal.length - 1; // Corrección del índice negativo
     } else if (leerMenuPrincipal.controlChar == ControlCharacter.arrowDown) {
-      selecMenuPrincipal = (selecMenuPrincipal + 1) % menuPrincipal.length; // Navega hacia abajo
+      selecMenuPrincipal =
+          (selecMenuPrincipal + 1) % menuPrincipal.length; // Navega hacia abajo
     } else if (leerMenuPrincipal.controlChar == ControlCharacter.enter) {
       // Maneja la selección de la opción
       controlMenuPrincipal.clearScreen(); // Limpia la pantalla
-      controlMenuPrincipal.writeLine('Seleccionaste: ${menuPrincipal[selecMenuPrincipal]}'); // Muestra la opción seleccionada
-      controlMenuPrincipal.writeLine('Presiona cualquier tecla para continuar...');
-      controlMenuPrincipal.readKey(); // Espera a que el usuario presione una tecla para continuar
+      controlMenuPrincipal.writeLine(
+          'Seleccionaste: ${menuPrincipal[selecMenuPrincipal]}'); // Muestra la opción seleccionada
+      controlMenuPrincipal
+          .writeLine('Presiona cualquier tecla para continuar...');
+      controlMenuPrincipal
+          .readKey(); // Espera a que el usuario presione una tecla para continuar
       if (selecMenuPrincipal == menuPrincipal.length - 1) {
         break; // Salir del menú si se selecciona "Salir"
       }
-    
 
-    
       // Manejo de las opciones del menú.
       switch (selecMenuPrincipal) {
         case 0:
@@ -81,7 +79,8 @@ void main() {
           controlMenuPrincipal.writeLine('Ingrese el nombre del tema:');
           String nombre = controlMenuPrincipal.readLine()!;
 
-          controlMenuPrincipal.writeLine('Ingrese la cantidad de estudiantes para este tema:');
+          controlMenuPrincipal
+              .writeLine('Ingrese la cantidad de estudiantes para este tema:');
           int cantidad = int.parse(controlMenuPrincipal.readLine()!);
 
           // Agregar tema y cantidad a las listas correspondientes.
@@ -196,20 +195,20 @@ void main() {
 
         case 8:
           // Asignar estudiantes a temas aleatoriamente.
-          asignaciones = [
-            [],
-            []
-          ];
+          asignaciones = [[], []];
           List<String> estudiantesDisponibles = List.from(estudiantes);
 
           for (int i = 0; i < temas.length; i++) {
             for (int j = 0; j < cantidades[i]; j++) {
               if (estudiantesDisponibles.isNotEmpty) {
-                int indiceAleatorio = (random.nextDouble() * estudiantesDisponibles.length).toInt();
+                int indiceAleatorio =
+                    (random.nextDouble() * estudiantesDisponibles.length)
+                        .toInt();
                 asignaciones[i].add(estudiantesDisponibles[indiceAleatorio]);
                 estudiantesDisponibles.removeAt(indiceAleatorio);
               } else {
-                print('No hay suficientes estudiantes para asignar a todos los temas.');
+                print(
+                    'No hay suficientes estudiantes para asignar a todos los temas.');
                 break;
               }
             }
@@ -236,29 +235,33 @@ void main() {
   }
 }
 
-
-
-void renderMenuInicial(Console controlMenuInicial, List<String> menuInicial, int selecMenuInicial) {
-  //controlMenuInicial.clearScreen(); // Limpia la pantalla de la consola
+void renderMenuInicial(Console controlMenuInicial, List<String> menuInicial,
+    int selecMenuInicial) {
+  controlMenuInicial.clearScreen(); // Limpia la pantalla de la consola
   controlMenuInicial.writeLine('');
   controlMenuInicial.writeLine('');
-  controlMenuInicial.setForegroundColor(ConsoleColor.blue); // Establece el color del texto
-  controlMenuInicial.writeLine('Usa las flechas del teclado para navegar y Enter para seleccionar.\n');
+  controlMenuInicial
+      .setForegroundColor(ConsoleColor.blue); // Establece el color del texto
+  controlMenuInicial.writeLine(
+      'Usa las flechas del teclado para navegar y Enter para seleccionar.\n');
   controlMenuInicial.resetColorAttributes(); // Resetea los atributos de color
   controlMenuInicial.writeLine('menu:');
 
   // Itera sobre las opciones y las muestra en la consola
   for (int i = 0; i < menuInicial.length; i++) {
     if (i == selecMenuInicial) {
-      controlMenuInicial.setForegroundColor(ConsoleColor.white); // Color del texto seleccionado
-      controlMenuInicial.setBackgroundColor(ConsoleColor.blue); // Color de fondo de la opción seleccionada
+      controlMenuInicial.setForegroundColor(
+          ConsoleColor.white); // Color del texto seleccionado
+      controlMenuInicial.setBackgroundColor(
+          ConsoleColor.blue); // Color de fondo de la opción seleccionada
       controlMenuInicial.write('➜  ');
-      controlMenuInicial.writeLine(menuInicial[i]); // Escribe la opción seleccionada
-      controlMenuInicial.resetColorAttributes(); // Resetea los atributos de color
+      controlMenuInicial
+          .writeLine(menuInicial[i]); // Escribe la opción seleccionada
+      controlMenuInicial
+          .resetColorAttributes(); // Resetea los atributos de color
     } else {
-      controlMenuInicial.writeLine(menuInicial[i]); // Escribe las opciones no seleccionadas
+      controlMenuInicial
+          .writeLine(menuInicial[i]); // Escribe las opciones no seleccionadas
     }
   }
-
 }
-
