@@ -45,11 +45,6 @@ Ingrese el numero de lo que desea hacer
       case 6:
         mostrarProyectos(proyectosDisponibles, valorProyecto, horasTrabajados,porcentajeAvanzado);
         break;
-      case 7:
-        print("Adioss");
-        return;
-      default:
-        print("error el numero ingresado es incorrecto");
     }
   }
 }
