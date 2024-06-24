@@ -6,7 +6,7 @@ void main() {
   List<String> temas = [];
   List<int> cantidades = [];
   List<String> estudiantes = [];
-  List<String> estudiantesPre = ["Mateo Arredondo","Brandon Restrepo","Geraldine Vazques","Carlos Duque","Mario","Miguel Angel",];
+  List<String> estudiantesPre = ["Mateo Arredondo","Brandon Restrepo","Geraldine Vasquez","Carlos Duque","Mario","Miguel Angel",];
   List<List<String>> asignaciones = [];
   Random random = Random();
 
