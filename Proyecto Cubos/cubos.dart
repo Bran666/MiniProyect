@@ -11,7 +11,6 @@ void main(List<String> args) {
   while (true) {
     print("""
 Ingrese el numero de lo que desea hacer
-
 1.Ingresar proyecto
 2.Ver cantidad de proyectos
 3.Modifcar horas trabajas
@@ -45,9 +44,11 @@ Ingrese el numero de lo que desea hacer
       case 6:
         mostrarProyectos(proyectosDisponibles, valorProyecto, horasTrabajados,porcentajeAvanzado);
         break;
+        
       case 7:
         print("Adioss");
         return;
+
       default:
         print("error el numero ingresado es incorrecto");
     }
