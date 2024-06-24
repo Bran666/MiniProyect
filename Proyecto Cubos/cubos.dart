@@ -11,6 +11,7 @@ void main(List<String> args) {
   while (true) {
     print("""
 Ingrese el numero de lo que desea hacer
+
 1.Ingresar proyecto
 2.Ver cantidad de proyectos
 3.Modifcar horas trabajas
@@ -22,21 +23,7 @@ Ingrese el numero de lo que desea hacer
 
     switch (res) {
       case 1:
-        print("Ingrese el nombre del proyecto ${i}");
-        proyectosDisponibles.add(stdin.readLineSync()!);
-
-        print("Ingrese el valor total del proyecto ${i}");
-        valorProyecto.add(double.parse(stdin.readLineSync()!));
-
-        print("Ingrese las horas que se lleva trabajadas en el proyecto ${i}");
-        horasTrabajados.add(double.parse(stdin.readLineSync()!));
-
-        print("Ingrese el porcentaje que avanzo del proyecto ${i}");
-        porcentajeAvanzado.add(double.parse(stdin.readLineSync()!));
-
-        print(
-            "Ingrese cero si desea salir o un numero diferente para continuar");
-        res = int.parse(stdin.readLineSync()!);
+        ingresarProyecto(proyectosDisponibles, valorProyecto, horasTrabajados, porcentajeAvanzado);
         break;
 
       case 2:
@@ -48,7 +35,7 @@ Ingrese el numero de lo que desea hacer
         break;
 
       case 4:
-        modificarPorcentaje(proyectosDisponibles, horasTrabajados);
+        modificarPorcentaje(proyectosDisponibles, porcentajeAvanzado);
         break;
 
       case 5:
@@ -56,10 +43,34 @@ Ingrese el numero de lo que desea hacer
         break;
 
       case 6:
-        mostrarProyectos(proyectosDisponibles, valorProyecto, horasTrabajados, porcentajeAvanzado);
+        mostrarProyectos(proyectosDisponibles, valorProyecto, horasTrabajados,porcentajeAvanzado);
         break;
+      case 7:
+        print("Adioss");
+        return;
+      default:
+        print("error el numero ingresado es incorrecto");
     }
   }
+}
+
+void ingresarProyecto (List<String>proyectosDisponibles,List<double>valorProyecto,List<double>horasTrabajados,List<double>porcentajeAvanzado ){
+  int res, i = 1;
+
+  print("Ingrese el nombre del proyecto ${i}");
+  proyectosDisponibles.add(stdin.readLineSync()!);
+
+  print("Ingrese el valor total del proyecto ${i}");
+  valorProyecto.add(double.parse(stdin.readLineSync()!));
+
+  print("Ingrese las horas que se lleva trabajadas en el proyecto ${i}");
+  horasTrabajados.add(double.parse(stdin.readLineSync()!));
+
+  print("Ingrese el porcentaje que avanzo del proyecto ${i}");
+  porcentajeAvanzado.add(double.parse(stdin.readLineSync()!));
+
+  print("Ingrese cero si desea salir o un numero diferente para continuar");
+  res = int.parse(stdin.readLineSync()!);
 }
 
 cantProyectos(List<String> Proyectos) {
@@ -80,11 +91,16 @@ modificarHoras(List<String> Proyectos, List<double> getHoras) {
   print("Ingrese la nueva cantidad de horas");
   double nuevasHoras = double.parse(stdin.readLineSync()!);
 
+  if (indice < 0 || indice >= Proyectos.length) {
+    print("El índice ingresado no es válido");
+    return;
+  }
+
   for (int i = 0; i < getHoras.length; i++) {
     if (i == indice) {
       getHoras[i] = nuevasHoras;
       print("Cambio exitoso");
-    } else if (i < 0 && i > getHoras.length) {
+    } else if (indice < 0 && indice > getHoras.length) {
       print("El dato ingresado no es valido");
     }
   }
@@ -92,7 +108,7 @@ modificarHoras(List<String> Proyectos, List<double> getHoras) {
   return nuevasHoras;
 }
 
-modificarPorcentaje(List<String> Proyectos, List<double> getPorcentaje) {
+modificarPorcentaje(List<String>Proyectos, List<double> getPorcentaje) {
   for (int i = 0; i < Proyectos.length; i++) {
     print("$i - ${Proyectos[i]}");
   }
@@ -100,19 +116,28 @@ modificarPorcentaje(List<String> Proyectos, List<double> getPorcentaje) {
   print("Ingrese el indice del proyecto que desea actualizar el porcentaje");
   int indice = int.parse(stdin.readLineSync()!);
 
-  print("Ingrese el porcentaje adicional ha avanzado en el proyecto");
+  print("Ingrese el porcentaje adicional avanzado en el proyecto");
   double sumaPorcentaje = double.parse(stdin.readLineSync()!);
+
+    if (indice < 0 || indice >= Proyectos.length) {
+    print("El índice ingresado no es válido");
+    return;
+  }
 
   for (int i = 0; i < getPorcentaje.length; i++) {
     if (i == indice) {
-      getPorcentaje[i] += sumaPorcentaje;
+      if ((getPorcentaje[i] + sumaPorcentaje) > 100) {
+      print("Error: Excedio el 100%");
+      break;
+      }
+      double res = getPorcentaje[i] += sumaPorcentaje;
       print("Cambio exitoso");
-    } else if (i < 0 && i > getPorcentaje.length) {
-      print("El dato ingresado no es valido");
+    } else if (indice < 0 && indice > getPorcentaje.length) {
+      print("El dato ingresado no es valido ");
     }
   }
 
-  return sumaPorcentaje;
+  return getPorcentaje;
 }
 
 void promedioHorasProyectos(List<double> horasProyectos) {
@@ -125,8 +150,7 @@ void promedioHorasProyectos(List<double> horasProyectos) {
   print("El promedio de horas de todos los proyectos es: ${promedio}");
 }
 
-void mostrarProyectos(List<String> Proyectos, List<double> ValorProyecto,
-    List<double> HorasTrabajadas, List<double> PorcentajeAvanzado) {
+void mostrarProyectos(List<String> Proyectos, List<double> ValorProyecto, List<double> HorasTrabajadas, List<double> PorcentajeAvanzado) {
   for (var i = 0; i < Proyectos.length; i++) {
     print("""
 ${i + 1}. Nombre: ${Proyectos[i]} 
