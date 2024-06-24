@@ -54,7 +54,7 @@ void main() {
           } else {
             console.setBackgroundColor(colors[random.nextInt(colors.length)]);
           }
-          console.writeLine('>> ${Menu[i]}');
+          console.writeLine('➜ ${Menu[i]}');
           console.resetColorAttributes();
         } else {
           console.writeLine('   ${Menu[i]}');
