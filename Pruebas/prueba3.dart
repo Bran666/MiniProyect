@@ -384,10 +384,7 @@ void asignarEstudiantesPre(
     List<String> estudiantesPre,
     List<List<String>> asignaciones,
     Random random) {
-  
   console.clearScreen();
-  
-  // Inicializa asignaciones con listas vacías si es necesario
   if (asignaciones.length < temasPre.length) {
     asignaciones.clear();
     for (int i = 0; i < temasPre.length; i++) {
@@ -398,7 +395,6 @@ void asignarEstudiantesPre(
       asignaciones[i].clear();
     }
   }
-
   List<String> estudiantesDisponibles = List.from(estudiantesPre);
 
   for (int i = 0; i < temasPre.length; i++) {
