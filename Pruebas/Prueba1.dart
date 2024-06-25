@@ -52,11 +52,7 @@ void main() {
           } else {
             console.setBackgroundColor(colors[random.nextInt(colors.length)]);
           }
-<<<<<<< HEAD:Prueba1.dart
-          console.writeLine('➜ ${Menu[i]}');
-=======
-          console.writeLine('-> ${menu[i]}');
->>>>>>> 1847fa6ed7dfee1a39e2803299fbd39874c2ab16:Pruebas/Prueba1.dart
+          console.writeLine('➜ ${menu[i]}');
           console.resetColorAttributes();
         } else {
           console.writeLine('   ${menu[i]}');
