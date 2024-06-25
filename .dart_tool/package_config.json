@@ -56,7 +56,11 @@
       "languageVersion": "3.4"
     }
   ],
+<<<<<<< HEAD
   "generated": "2024-06-24T23:33:43.248169Z",
+=======
+  "generated": "2024-06-24T18:53:25.114659Z",
+>>>>>>> 2366f9190ac9f544283dd96b2916bd63dce01b56
   "generator": "pub",
   "generatorVersion": "3.4.4",
   "pubCache": "file:///C:/Users/gvg13/AppData/Local/Pub/Cache"
