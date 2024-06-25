@@ -7,6 +7,8 @@ void main() {
   List<int> cantidades = [];
   List<String> estudiantes = [];
   List<String> estudiantesPre = ["Mateo Arredondo","Brandon Restrepo","Geraldine Vasquez","Carlos Duque","Mario","Miguel Angel",];
+  List<String> temasPre = ["Ciencias", "Matematicas"];
+  List<int> cantidadesPre = [3,3];
   List<List<String>> asignaciones = [];
   Random random = Random();
 
@@ -76,7 +78,7 @@ void main() {
 
           case ControlCharacter.enter:
             console.rawMode = false;
-            handleMenuSelection(selectedIndex, temas, cantidades, estudiantes, estudiantesPre, asignaciones, random);
+            handleMenuSelection(selectedIndex, temas, cantidades, estudiantes, estudiantesPre, asignaciones, random, temasPre,cantidadesPre);
             console.writeLine('Presione Enter para continuar.');
             stdin.readLineSync();
             inMenu = false;
@@ -101,7 +103,7 @@ void main() {
   }
 }
 
-void handleMenuSelection(int index, List<String> temas, List<int> cantidades, List<String> estudiantes,List<String>estudiantesPre, List<List<String>> asignaciones, Random random) {
+void handleMenuSelection(int index, List<String> temas, List<int> cantidades, List<String> estudiantes,List<String>estudiantesPre, List<List<String>> asignaciones, Random random, List<String> temasPre, List<int> cantidadesPre) {
   final console = Console();
   switch (index) {
     case 0:
@@ -132,7 +134,7 @@ void handleMenuSelection(int index, List<String> temas, List<int> cantidades, Li
       asignarEstudiantes(console, temas, cantidades, estudiantes, asignaciones, random);
       break;
     case 9:
-      asignarEstudiantesPre(console, temas, cantidades, estudiantesPre, asignaciones, random);
+      asignarEstudiantesPre(console, temasPre, cantidadesPre, estudiantes, asignaciones, random);
       break;
     case 10:
       console.clearScreen();
@@ -343,15 +345,15 @@ void asignarEstudiantes(Console console, List<String> temas, List<int> cantidade
   }
 }
 
-void asignarEstudiantesPre(Console console, List<String> temas, List<int> cantidades, List<String> estudiantes, List<List<String>> asignaciones, Random random) {
+void asignarEstudiantesPre(Console console, List<String> temasPre, List<int> cantidadesPre, List<String> estudiantes, List<List<String>> asignaciones, Random random) {
   console.clearScreen();
   for (int i = 0; i < asignaciones.length; i++) {
     asignaciones[i].clear();
   }
   List<String> estudiantesDisponibles = List.from(estudiantes);
 
-  for (int i = 0; i < temas.length; i++) {
-    for (int j = 0; j < cantidades[i]; j++) {
+  for (int i = 0; i < temasPre.length; i++) {
+    for (int j = 0; j < cantidadesPre[i]; j++) {
       if (estudiantesDisponibles.isNotEmpty) {
         int indiceAleatorio = (random.nextDouble() * estudiantesDisponibles.length).toInt();
         asignaciones[i].add(estudiantesDisponibles[indiceAleatorio]);
@@ -370,7 +372,7 @@ void asignarEstudiantesPre(Console console, List<String> temas, List<int> cantid
   console.resetColorAttributes();
 
   for (int i = 0; i < asignaciones.length; i++) {
-    console.writeLine('Tema: ${temas[i]}');
+    console.writeLine('Tema: ${temasPre[i]}');
     for (int j = 0; j < asignaciones[i].length; j++) {
       console.writeLine('- ${asignaciones[i][j]}');
     }
