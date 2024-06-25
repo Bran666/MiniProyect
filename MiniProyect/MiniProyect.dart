@@ -343,15 +343,15 @@ void asignarEstudiantes(Console console, List<String> temas, List<int> cantidade
   }
 }
 
-void asignarEstudiantesPre(Console console, List<String> temas, List<int> cantidades, List<String> estudiantes, List<List<String>> asignaciones, Random random) {
+void asignarEstudiantesPre(Console console, List<String> temasPre, List<int> cantidadesPre, List<String> estudiantesPre, List<List<String>> asignaciones, Random random) {
   console.clearScreen();
   for (int i = 0; i < asignaciones.length; i++) {
     asignaciones[i].clear();
   }
-  List<String> estudiantesDisponibles = List.from(estudiantes);
+  List<String> estudiantesDisponibles = List.from(estudiantesPre);
 
-  for (int i = 0; i < temas.length; i++) {
-    for (int j = 0; j < cantidades[i]; j++) {
+  for (int i = 0; i < temasPre.length; i++) {
+    for (int j = 0; j < cantidadesPre[i]; j++) {
       if (estudiantesDisponibles.isNotEmpty) {
         int indiceAleatorio = (random.nextDouble() * estudiantesDisponibles.length).toInt();
         asignaciones[i].add(estudiantesDisponibles[indiceAleatorio]);
@@ -370,7 +370,7 @@ void asignarEstudiantesPre(Console console, List<String> temas, List<int> cantid
   console.resetColorAttributes();
 
   for (int i = 0; i < asignaciones.length; i++) {
-    console.writeLine('Tema: ${temas[i]}');
+    console.writeLine('Tema: ${temasPre[i]}');
     for (int j = 0; j < asignaciones[i].length; j++) {
       console.writeLine('- ${asignaciones[i][j]}');
     }
