@@ -75,17 +75,15 @@ void ingresarProyecto (List<String>proyectosDisponibles,List<double>valorProyect
   } while (res != 0);
 }
 
-cantProyectos(List<String> Proyectos) {
+int cantProyectos(List<String> Proyectos) {
   int cantProyectos = Proyectos.length;
   print("La cantidad de proyectos disponibles es: $cantProyectos");
 
   return cantProyectos;
 }
 
-modificarHoras(List<String> Proyectos, List<double> getHoras) {
-  for (int i = 0; i < Proyectos.length; i++) {
-    print("$i - ${Proyectos[i]}");
-  }
+dynamic modificarHoras(List<String> Proyectos, List<double> getHoras) {
+  mostrarListaProyectos(Proyectos);
 
   print("Ingrese el indice del proyecto que desea modificar las horas");
   int indice = int.parse(stdin.readLineSync()!);
@@ -111,9 +109,7 @@ modificarHoras(List<String> Proyectos, List<double> getHoras) {
 }
 
 modificarPorcentaje(List<String>Proyectos, List<double> getPorcentaje) {
-  for (int i = 0; i < Proyectos.length; i++) {
-    print("$i - ${Proyectos[i]}");
-  }
+  mostrarListaProyectos(Proyectos);
 
   print("Ingrese el indice del proyecto que desea actualizar el porcentaje");
   int indice = int.parse(stdin.readLineSync()!);
@@ -163,3 +159,11 @@ Porcentaje avanzado: ${PorcentajeAvanzado[i]}
 """);
   }
 }
+
+void mostrarListaProyectos(List<String> Proyectos){
+  for (int i = 0; i < Proyectos.length; i++) {
+    print("$i - ${Proyectos[i]}");
+  }
+}
+
+
