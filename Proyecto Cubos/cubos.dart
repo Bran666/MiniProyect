@@ -55,7 +55,8 @@ Ingrese el numero de lo que desea hacer
 void ingresarProyecto (List<String>proyectosDisponibles,List<double>valorProyecto,List<double>horasTrabajados,List<double>porcentajeAvanzado ){
   int res, i = 1;
 
-  print("Ingrese el nombre del proyecto ${i}");
+  do {
+    print("Ingrese el nombre del proyecto ${i}");
   proyectosDisponibles.add(stdin.readLineSync()!);
 
   print("Ingrese el valor total del proyecto ${i}");
@@ -66,9 +67,12 @@ void ingresarProyecto (List<String>proyectosDisponibles,List<double>valorProyect
 
   print("Ingrese el porcentaje que avanzo del proyecto ${i}");
   porcentajeAvanzado.add(double.parse(stdin.readLineSync()!));
-
+  
   print("Ingrese cero si desea salir o un numero diferente para continuar");
   res = int.parse(stdin.readLineSync()!);
+
+  i++;
+  } while (res != 0);
 }
 
 cantProyectos(List<String> Proyectos) {
